@@ -1,0 +1,125 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx, bm}
+\title{Computational Logic - Assignment 1}
+\author{Alessandro Marostica\thanks{Arianna, per avermi stimolato ad usare LaTeX}}
+\date{\today}
+\begin{document}
+\maketitle
+\section*{Prelude}
+I have never used LaTeX before, please bear with my plausibly horrible usage.
+\section*{Exercise 2}
+\paragraph*{Disjunction}
+Using De Morgan's law, one can define the OR operator as such:
+\begin{center}
+    \(A \vee B \equiv \neg(\neg A \wedge \neg B)\)
+\end{center}
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \(A\) & \(B\) & \(A \vee B\) \\
+        \hline
+        T & T & T \\
+        T & F & T \\
+        F & T & T \\
+        F & F & F \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \(A\) & \(B\) & \(\neg A\) & \(\neg B\) & \(\neg A \wedge \neg B\) & \(\neg(\neg A \wedge \neg B)\) \\
+        \hline
+        T & T & F & F & F & T \\
+        T & F & F & T & F & T \\
+        F & T & T & F & F & T \\
+        F & F & T & T & T & F \\
+        \hline       
+    \end{tabular}
+\end{center}
+\paragraph*{Implication} 
+One can define IMPLIES as such:
+\begin{center}
+    \(A \rightarrow B \equiv \neg A \vee B\)
+\end{center}
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \(A\) & \(B\) & \(A \rightarrow B\) \\
+        \hline
+        T & T & T \\
+        T & F & F \\
+        F & T & T \\
+        F & F & T \\
+        \hline    
+    \end{tabular}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \(A\) & \(B\) & \(\neg A\) & \(\neg A \vee B\) \\
+        \hline
+        T & T & F & T \\
+        T & F & F & F \\
+        F & T & T & T \\
+        F & F & T & T \\
+        \hline       
+    \end{tabular}
+\end{center}
+\paragraph*{Material equivalence}
+One can define IFF as such:
+\begin{center}
+    \(A \leftrightarrow B \equiv (A \wedge B)\vee(\neg A \wedge \neg B)\)
+\end{center}
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \(A\) & \(B\) & \(A \leftrightarrow B\) \\
+        \hline
+        T & T & T \\
+        T & F & F \\
+        F & T & F \\
+        F & F & T \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \(A\) & \(B\) & \(A \wedge B\) & \(\neg A\) & \(\neg B\) & \(\neg A \wedge \neg B\) & \((A \wedge B)\vee(\neg A \wedge \neg B)\) \\
+        \hline
+        T & T & T & F & F & F & T \\
+        T & F & F & F & T & F & F \\
+        F & T & F & T & F & F & F \\
+        F & F & F & T & T & T & T \\
+        \hline
+    \end{tabular} 
+\end{center}
+Note that IFF yields the same result as XNOR, which is opposite of XOR.
+\paragraph*{Exclusive disjunction}
+One can define XOR as such:
+\begin{center}
+    \(A \oplus B \equiv (A \wedge \neg B)\vee(\neg A \wedge B)\)
+\end{center}
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \(A\) & \(B\) & \(A \oplus B\) \\
+        \hline
+        T & T & F \\
+        T & F & T \\
+        F & T & T \\
+        F & F & F \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \(A\) & \(B\) & \(\neg A\) & \(\neg B\) & \(A \wedge \neg B\) & \(\neg A \wedge B\) & \((A \wedge \neg B)\vee(\neg A \wedge B)\) \\
+        \hline
+        T & T & F & F & F & F & F \\
+        T & F & F & T & T & F & T \\
+        F & T & T & F & F & T & T \\
+        F & F & T & T & F & F & F \\
+        \hline
+    \end{tabular}
+\end{center}
+\paragraph*{NAND is sufficient to define all simple logical operators}
+\subparagraph*{\(\bm{\neg p}\)}
+can be defined as \(p \uparrow p\) (\(\uparrow\) is the symbol for NAND), this is equivalent to \(p \uparrow p \leftrightarrow \neg(p \wedge p) \leftrightarrow \neg p\). In natural language this can be referred to as "not both p and p".
+\subparagraph*{\(\bm{p \wedge q}\)}
+can be defined as \(\neg(p \uparrow q)\)
+\end{document}
