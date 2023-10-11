@@ -1,7 +1,7 @@
-\documentclass[11pt]{verifica}
+\documentclass[11pt]{exam}
 \usepackage{graphicx, bm}
 \title{Computational Logic - Assignment 1}
-\author{Alessandro Marostica\thanks{Arianna, per avermi stimolato ad usare LaTeX}}
+\author{Alessandro Marostica}
 \date{\today}
 \begin{document}
 \maketitle
@@ -11,7 +11,7 @@ I have never used LaTeX before, please bear with my plausibly horrible usage.
 \paragraph*{Disjunction}
 Using De Morgan's law, one can define the OR operator as such:
 \begin{center}
-    \(A \vee B \equiv \neg(\neg A \wedge \neg B)\)
+    \(A \vee B \dashv \vdash \neg(\neg A \wedge \neg B)\)
 \end{center}
 \begin{center}
     \begin{tabular}{|c|c|c|}
@@ -38,7 +38,7 @@ Using De Morgan's law, one can define the OR operator as such:
 \paragraph*{Implication} 
 One can define IMPLIES as such:
 \begin{center}
-    \(A \rightarrow B \equiv \neg A \vee B\)
+    \(A \rightarrow B \dashv \vdash \neg A \vee B\)
 \end{center}
 \begin{center}
     \begin{tabular}{|c|c|c|}
@@ -65,12 +65,12 @@ One can define IMPLIES as such:
 \paragraph*{Material equivalence}
 One can define IFF as such:
 \begin{center}
-    \(A \leftrightarrow B \equiv (A \wedge B)\vee(\neg A \wedge \neg B)\)
+    \(A \dashv \vdash B \dashv \vdash (A \wedge B)\vee(\neg A \wedge \neg B)\)
 \end{center}
 \begin{center}
     \begin{tabular}{|c|c|c|}
         \hline
-        \(A\) & \(B\) & \(A \leftrightarrow B\) \\
+        \(A\) & \(B\) & \(A \dashv \vdash B\) \\
         \hline
         T & T & T \\
         T & F & F \\
@@ -93,7 +93,7 @@ Note that IFF yields the same result as XNOR, which is opposite of XOR.
 \paragraph*{Exclusive disjunction}
 One can define XOR as such:
 \begin{center}
-    \(A \oplus B \equiv (A \wedge \neg B)\vee(\neg A \wedge B)\)
+    \(A \oplus B \dashv \vdash (A \wedge \neg B)\vee(\neg A \wedge B)\)
 \end{center}
 \begin{center}
     \begin{tabular}{|c|c|c|}
@@ -117,9 +117,20 @@ One can define XOR as such:
         \hline
     \end{tabular}
 \end{center}
-\paragraph*{NAND is sufficient to define all simple logical operators}
+\paragraph*{Defining simple operators with NAND} \hfill \break
+NAND is defined as such:
+\begin{center}
+    \(p \uparrow q \dashv \vdash \neg(p \wedge q)\)
+\end{center}
+hence:
 \subparagraph*{\(\bm{\neg p}\)}
-can be defined as \(p \uparrow p\) (\(\uparrow\) is the symbol for NAND), this is equivalent to \(p \uparrow p \leftrightarrow \neg(p \wedge p) \leftrightarrow \neg p\). In natural language this can be referred to as "not both p and p".
+can be defined as \(p \uparrow p\) (\(\uparrow\) is the symbol for NAND), this is equivalent to \(p \uparrow p \dashv \vdash \neg(p \wedge p) \dashv \vdash \neg p\). In natural language this can be referred to as "not both p and p".
 \subparagraph*{\(\bm{p \wedge q}\)}
-can be defined as \(\neg(p \uparrow q)\)
+can be defined as \(\neg(p \uparrow q)\), this is equivalent to \(\neg(p \uparrow q) \dashv \vdash \neg(\neg(p \wedge q)) \dashv \vdash p \wedge q\)
+\subparagraph*{\(\bm{p \vee q}\)}
+can be defined as \((p \uparrow p) \uparrow (q \uparrow q)\), this is equivalent to \((p \uparrow p) \uparrow (q \uparrow q) \dashv \vdash \neg(p \wedge p) \uparrow \neg(q \wedge q) \dashv \vdash \neg p \uparrow \neg q \dashv \vdash \neg (\neg p \wedge \neg q) \dashv \vdash p \vee q\). In the last step De Morgan's law is applied.
+\subparagraph*{\(\bm{p \rightarrow q}\)}
+can be defined as \(p \uparrow (q \uparrow q)\), this is equivalent to \(p \uparrow (q \uparrow q) \dashv \vdash p \uparrow \neg q \dashv \vdash \neg p \vee \neg \neg q \dashv \vdash \neg p \vee q \dashv \vdash p \rightarrow q\). In this proof the rules of disjunction in terms of NAND and negation in terms of NAND are applied.
+\subparagraph*{\(\bm{p \leftrightarrow q}\)}
+can be defined as \(((p \uparrow p) \uparrow (q \uparrow q)) \uparrow (p \uparrow q)\), this is equivalent to \(((p \uparrow p) \uparrow (q \uparrow q)) \uparrow (p \uparrow q) \dashv \vdash \neg(((p \uparrow p) \uparrow (q \uparrow q)) \wedge (p \uparrow q)) \dashv \vdash \neg((p \vee q) \wedge (p \uparrow q)) \dashv \vdash \neg((p \vee q) \wedge \neg (p \wedge q)) \dashv \vdash \neg(p \oplus q) \dashv \vdash p \leftrightarrow q\). In this proof many rules are applied: disjunction interms of NAND, definition of XOR, XOR is negation of biconditional.
 \end{document}
