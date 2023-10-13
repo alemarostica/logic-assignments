@@ -1,5 +1,5 @@
 \documentclass[11pt]{exam}
-\usepackage{graphicx, bm}
+\usepackage{graphicx, bm, listings}
 \title{Computational Logic - Assignment 1}
 \author{Alessandro Marostica}
 \date{\today}
@@ -133,4 +133,73 @@ can be defined as \((p \uparrow p) \uparrow (q \uparrow q)\), this is equivalent
 can be defined as \(p \uparrow (q \uparrow q)\), this is equivalent to \(p \uparrow (q \uparrow q) \dashv \vdash p \uparrow \neg q \dashv \vdash \neg p \vee \neg \neg q \dashv \vdash \neg p \vee q \dashv \vdash p \rightarrow q\). In this proof the rules of disjunction in terms of NAND and negation in terms of NAND are applied.
 \subparagraph*{\(\bm{p \leftrightarrow q}\)}
 can be defined as \(((p \uparrow p) \uparrow (q \uparrow q)) \uparrow (p \uparrow q)\), this is equivalent to \(((p \uparrow p) \uparrow (q \uparrow q)) \uparrow (p \uparrow q) \dashv \vdash \neg(((p \uparrow p) \uparrow (q \uparrow q)) \wedge (p \uparrow q)) \dashv \vdash \neg((p \vee q) \wedge (p \uparrow q)) \dashv \vdash \neg((p \vee q) \wedge \neg (p \wedge q)) \dashv \vdash \neg(p \oplus q) \dashv \vdash p \leftrightarrow q\). In this proof many rules are applied: disjunction interms of NAND, definition of XOR, XOR is negation of biconditional.
+\section*{Exercise 3}
+\paragraph*{\(\bm{p \wedge (q \wedge r) \vdash (p \wedge q) \wedge r}\)}
+This sequent can be proved in this way:
+\begin{center}
+    \begin{tabular}{c c c}
+        1 & \(p \wedge (q \wedge r)\) & Premise \\   
+        \hline
+        2 & \(q \wedge r\) & \(\wedge e1\) \\
+        3 & \(q\) & \(\wedge e2\) \\
+        4 & \(r\) & \(\wedge e2\) \\
+        5 & \(p \wedge q\) & \(\wedge i1,3\) \\
+        6 & \((p \wedge q) \wedge r\) & \(\wedge i5,4\) \\
+    \end{tabular}
+\end{center}
+\paragraph*{\(\bm{\neg p \wedge \neg q \vdash \neg(p \vee q)}\)}
+This sequent can be proved by contradiction in this way:
+\begin{center}
+    \begin{tabular}{c c c}
+        1 & \(\neg p \wedge \neg q\) & Premise \\
+        \hline
+        2 & \(p \vee q\) & Assumption for the sake of contradiction \\
+        3 & \(\neg p\) & \(\wedge e1\) \\
+        4 & \(\neg q\) & \(\wedge e1\) \\
+        5 & \(p\) & \(\vee e2\) \\
+        6 & \(\bot\) & 5, 3 \\
+        7 & \(\neg(p \vee q)\) & Proof by contradiction \\
+    \end{tabular}
+\end{center}
+\section*{Exercise 4}
+\paragraph*{Intuitionistic Logic}
+Intuitionistic logic can be, in a way, understood as a weakening of classical logic: it gives the reasoner less possibilities to infer informations based on certain propositions and it does not allow any new inference that could not be made under classical logic.
+Intuitionistic logic differs from classical propositional logic in its treatment of logical connectives, namely:
+\begin{itemize}
+    \item \textbf{Negation:} in this kind of logic negation is defined as "A is not provable" rather than "A is false", this is because, in intuitionistic logic, a proposition can be true, false or unknown. This implies that, in intuitionistic logic, the Law of the Excluded Middle, which states that every proposition is either \(A\) or \(\neg A\) does not hold.
+    \item \textbf{Implication:} in intuitionistic logic, implication is interpreted ad "if we can prove A, then we can prove B", an example of constructive interpretation. In contrast, classical logic interprets implication as the preservation of truth.
+    \item \textbf{Double negation:} because of the different interpretation of negation, double negation does not hold in intuitionistic logic, one cannot always infer a propositon from its double negation
+\end{itemize}
+In intuitionistic propositional logic, propositonal formulas are only considered true when there is direct evidence, hence proof. Operations therefore preserve justification rather than truth.
+Intuitionistic logic found applications in certain computerized tools, namely proof assistants, which aid users in the generation of large scale proofs, enabling mathematicians and logicians to develop and prove extremely complex systems, beyond human capability.
+It can also be used to formally verify correctness of computer programs, especially in functional programming, a paradigm which encourages a constructive approach.
+\section*{Exercise 3}
+\paragraph*{Disjunctive Normal Form}
+is a way of expressing propositional formulas as the logical OR of multiple clauses which are conjunctions of one or more literals.
+As in CNF, the only logical operators used are \(\wedge\), \(\vee\) and \(\neg\). Some examples of formulas in DNF follow:
+\begin{itemize}
+    \item \(A\)
+    \item \((A \wedge B)\)
+    \item \((A \wedge B) \vee C\)
+    \item \((A \wedge B) \vee (C \wedge D)\)
+    \item \((A \wedge \neg B \wedge \neg C) \vee (D \wedge E)\)
+\end{itemize}
+Also as in CNF, all formulas can be converted into equivalent DNF formulas but in some cases it can lead to an exponential growth of the formula.
+A DNF formula is satisfiable if, and only if, one of its conjuncts is satisfiable, a problem solvable in polynomial time. This is contrasting to the satisfiability problem for CNF, which is an NP-hard problem.
+As for CNF, DNF simplifies complex proposotional formulas, which can then be evaluated in linear time. This also implies its usefulness in model checking, although after the conversion of such model in DNF. 
+The following pseudo-code computes a generic propositional formula into DNF\footnote[1]{I am not sure about this pseudo-code, I couldn't find much information}:
+\begin{lstlisting}[escapeinside={_}{_}]
+    fn DNF(formula):
+        if formula == _\(A\)_:
+            return formula
+        else if formula == _\(A \wedge B\)_:
+            return DNF(_\(A\)_) _\(\wedge\)_ DNF(_\(B\)_)
+        else if formula == _\(A \vee B\)_:
+            return DNF(_\(A\)_) _\(\vee\)_ DNF(_\(B\)_)
+        else if formula == _\(A \rightarrow B\)_:
+            return DNF(_\(\neg A\)_) _\(\vee\)_ DNF(_\(B\)_)
+        else if formula == _\(\neg A\)_:
+            return DNF(_\(A\)_)
+\end{lstlisting}
+
 \end{document}
