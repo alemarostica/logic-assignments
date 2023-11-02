@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1698917406 "/home/alessandro/Desktop/LogicaPolacca/assignment/assignment2.tex" "assignment2.pdf" "assignment2" 1698917406 0
+["pdflatex"] 1698917467 "/home/alessandro/Desktop/LogicaPolacca/assignment/assignment2.tex" "assignment2.pdf" "assignment2" 1698917468 0
   "/etc/texmf/web2c/texmf.cnf" 1697020868 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/alessandro/Desktop/LogicaPolacca/assignment/assignment2.tex" 1698917405 842 2593b11fdcc9dd5e5927fe4077160604 ""
+  "/home/alessandro/Desktop/LogicaPolacca/assignment/assignment2.tex" 1698917467 847 900be4bf99d504fa092f24e2aaba54af ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1246382020 1120 200be8b775682cdf80acad4be5ef57e4 ""
@@ -54,8 +54,8 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1676468108 39561 34c98e380bf7c7201ee6a7909aff625a ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697020902 4623455 fa0568a71dd9a288d6c226ee477506c6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1697021031 7883230 c59570d0aac78c2aceba95d3afd30c44 ""
-  "assignment2.aux" 1698917406 329 cfca87d27653727961d59512c05144d8 "pdflatex"
-  "assignment2.tex" 1698917405 842 2593b11fdcc9dd5e5927fe4077160604 ""
+  "assignment2.aux" 1698917468 329 cfca87d27653727961d59512c05144d8 "pdflatex"
+  "assignment2.tex" 1698917467 847 900be4bf99d504fa092f24e2aaba54af ""
   (generated)
   "assignment2.aux"
   "assignment2.log"
