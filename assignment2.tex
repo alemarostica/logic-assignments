@@ -1,5 +1,5 @@
 \documentclass[11pt]{exam}
-\usepackage{graphicx, bm, listings}
+\usepackage{graphicx, bm, listings, txfonts, logicproof}
 \title{Computational Logic - Assignment 2}
 \author{Alessandro Marostica}
 \date{\today}
@@ -7,8 +7,7 @@
 \maketitle
 \section*{Exercise 2}
 A bijective function is both injective and surjective.
-We define a function \(f: D \rightarrow C\). We then express its injectivity and surjectivity respectively as such:
-\\
+We define a function \(f: D \to C\). We then express its injectivity and surjectivity respectively as such:
 \begin{center}
     \(\forall x_1 \in D \  \forall x_2 \in D((x_1 \neq x_2) \Longrightarrow f(x_1) \neq f(x_2)) \)
     \\
@@ -18,4 +17,66 @@ We can then introduce conjunction between the two formulas to descirbe a bijecti
 \begin{center}
     \(\forall x_1 \in D \  \forall x_2 \in D((x_1 \neq x_2) \Longrightarrow f(x_1) \neq f(x_2))\ \wedge \forall y \in C \  \exists x \in D(y = f(x))\)
 \end{center}
+\section*{Exercise 3}
+To determine the validity of the given formula \((\forall xP(x) \to \forall xQ(x)) \to \forall x(P(x) \to Q(x))\)
+we need to demonstrate that it is always true, were we to find a counterexample where the formula is false, the it is not valid.
+Let's take, for example, the domain to be the set of all natural numbers (\(\mathbb{N}\)), let P(x) be "x is even" and Q(x) be "x is sivisible by 4".
+Let's now evaluate the lefthand operand \(\forall xP(x) \to \forall xQ(x)\), this can be read as "for each x, x is even then for each x, x is divisible by 4".
+Both operands of this implication are false and, since a false antecedent can imply anything, this side is vacuously true.
+Now on to the rightmost operand \(\forall x(P(x) \to Q(x))\). This could be read as "for each x such that x is even, x is also divisible by 4", but this is not
+always true since there are even numbers not divisible by 4 in \(\mathbb{N}\).
+In conclusion, we have a counterexample to the validity of this formula, making it invalid.
+\section*{Exercise 4}
+A syllogism applies deductive reasoning to conclude something based on two propositions that are asserted or assumed to be true.
+Aristotle labeled the different types of premise with letters, A meaning a universal affirmative premise. B\textbf{A}RB\textbf{A}R\textbf{A} is a mnemonic name which indicates the form AAA of the syllogism.
+We can formalize the BARBARA pattern in FO logic as follows (natural language, then first order logic): \\
+Premises:
+\begin{center}
+    All A's are B's: \(\forall x(A(x) \to B(x))\) \\
+    All B's are C's: \(\forall x(B(x) \to C(x))\)
+\end{center}
+Conclusion:
+\begin{center}
+    All A's are C's: \(\forall  x(A(x) \to C(x))\)
+\end{center}
+Let's now assume \(x_0\) as an arbitrary element of a domain. Then
+\begin{center}
+    \(A(x_0) \to B(x_0)\)
+    \(B(x_0) \to C(x_0)\)
+\end{center}
+Now, using the transitive property of implication we can deduce:
+\begin{center}
+    \(A(x_0) \to C(x_0)\)
+\end{center}
+Since x was chosen arbitrarily, we can generalize the result to the entre domain:
+\begin{center}
+    \(\forall x(A(x) \to C(x))\) \\
+\end{center}
+\begin{flushright}
+    \(\square\)
+\end{flushright}
+In a more formal way:
+\begin{center}
+    {
+        \setlength\subproofhorizspace{2em}
+        \begin{logicproof}{1}
+            \forall x(A(x) \to B(x)) & Premise \\
+            \forall x(B(x) \to C(x)) & Premise \\
+            \begin{subproof}
+                \llap{\(x_0\quad\)} A(x_0) \to B(x_0) & \(\forall xe\ 1\) \\
+                B(x_0) \to C(x_0) & \(\forall xe\ 2\) \\
+                A(x_0) \to C(x_0) & Transitive property
+            \end{subproof}
+            \forall x(A(x) \to C(x)) & \(\forall xi\ 3-5\)
+        \end{logicproof} 
+    }
+\end{center}
+\section*{Exercise 5}
+The indecidability problem for FO logic states that It is undecidable whether a first order logic formula is provable (or true under all possible interpretations).
+A quick way do prove this theorem os to show that the decidability problem is at least as hard as the Halting problem, a known undecidable problem.
+We assume the existence of a decision procedure for determining the validity of FO logic formulas. This way we can now create a program which utilizes said procedure to solve the Halting Problem.
+This program takes as input another program P and an input string x and determines whether P halts on input x. The constructed program works like this:
+It constructs a FOL formula based on the behaviour of P on input x. It then uses the FOL validity checker to determine whether this formula is valid. If the FOL formula is valid, it concludes that P halts on input x. 
+If the FOL formula is not valid, it concludes that P does not halt on input x. If the assumed FOL validity checker correctly determines the validity of FOL formulas, then our constructed program can solve the Halting Problem.
+However, we know the Halting problem to be an undecidable one, therefore are assumption that a general algorithm can determine the validity of FOL formulas must be wrong.
 \end{document}
