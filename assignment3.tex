@@ -1,0 +1,48 @@
+\documentclass[11pt]{exam}
+\usepackage{graphicx, bm, listings, txfonts, logicproof}
+\title{Computational Logic - Assignment 3}
+\author{Alessandro Marostica}
+\date{\today}
+\begin{document}
+\maketitle
+\section*{Exercise 2}
+Let's break down the proof in two parts:
+\begin{enumerate}
+    \item R is symmetric \(\Rightarrow \psi \Rightarrow \square \diamond \psi\)
+    \item \(\psi \Rightarrow \square \diamond \psi \Rightarrow\) R is symmetric
+\end{enumerate}
+\textbf{R is symmetric} \boldmath{\(\Rightarrow \psi \Rightarrow \square \diamond \psi\)}: \\
+Let's assume that \(\psi\) is true in a world w, \(w \vDash \psi\). We need to show that \(w \vDash \square \diamond \psi\).
+By definition of modal operators, since R is symmetric, if v is accessible from w, then w is accessible from v. Therefore, if \(\psi\) is true in v, then \(\psi\) is also true in w.
+This implies that \(\square \psi\) is true in w and \(\diamond \psi\) is true in w. Therefore \(\square \diamond \psi\) holds in w.
+Since this holds for an arbitrary world w where \(\psi\) is true, we can conclude that \(\psi \Rightarrow \square \diamond \psi\). \\
+\textbf{\(\psi \Rightarrow \square \diamond \psi \Rightarrow\) R is symmetric}: \\
+To show symmetry, we need to show that if \(wRv\) then \(vRw\) for all worlds w and v.
+Let's assume \(wRv\), this means that v is accessible form w.
+Let's also consider the formula \(\psi = \neg \square \neg \diamond \bot \), which is not necessarily false. By assuming \(\psi \Rightarrow \square \diamond \psi\), we have \(\neg \square \neg \diamond \bot \Rightarrow \square \diamond \neg \square \neg \diamond \bot\).
+In the world w:
+\begin{enumerate}
+    \item \(\neg \square \neg \diamond \bot\) is true in w since \(\diamond \bot\) is true in vv, which is accessible from w.
+    \item \(\square \diamond \neg \square \neg \diamond \bot\) is true in w by assumption.
+\end{enumerate}
+This implies that \(\neg \square \neg \diamond \bot\) is true in all worlds accessible from w, including v.
+Now, considering formula \(\diamond \bot\), we have that this is true in v since \(\neg \square \neg \diamond \bot\) is true in v. Therefore \(vRw\).
+Since this is true in an arbitrary world, we can conclude that R is symmetric.
+\section*{Exercise 3}
+As in Exercise 2, we will break down this proof in two parts:
+\begin{enumerate}
+    \item F is euclidean \(\Rightarrow F \vDash \diamond \psi \Rightarrow \square \diamond \psi\)
+    \item \(F \vDash \diamond \psi \Rightarrow \square \diamond \psi \Rightarrow\) F is euclidean
+\end{enumerate}
+\textbf{F is euclidean} \boldmath{\(\Rightarrow F \vDash \diamond \psi \Rightarrow \square \diamond \psi\)}: \\
+Let w be a world in W, Suppose \(w \vDash \diamond \psi\), meaning there exists a world v such that \(wRv\) and \(v \vDash \psi\).
+We now need to show that \(w \vDash \square \diamond \psi\). Thanks to the euclidean property, if \(wRv\) and \(wRu\) then \(vRu\) for any u in W.
+Since \(wRv\) is reflexive, \(vRw\), then \(vRv\). This means that \(\diamond \psi\) is true at v. Now \(\square \diamond \psi\) is ture at w because \(\diamond \psi\) is ture at all worlds accessible from w. \\
+\textbf{\(F \vDash \diamond \psi \Rightarrow \square \diamond \psi \Rightarrow\) F is euclidean}: \\
+Let's take any \(x, y, z\) in W such that \(xRy\) and \(xRz\). We need to show that \(yRz\).
+Let's consider the formula \(\phi = \diamond \psi\), where \(\phi\) is an arbitrary formula. Since \(xRy\) there exists \(u\) such that \(xRu\) and \(u \vDash \psi\).
+Now, \(xRz\) and, by assuming \(F \vDash \diamond \psi \Rightarrow \square \diamond \psi\), we have \(xRz \Rightarrow zRw\) for any w such that \(xRu\).
+Therefore we have \(zRw\) for some w such that \(xRu\). Since y is accessible from x, y is also accessible from u, which implies \(yRw\).
+Given \(yRw\) and \(zRw\), by transitiviy we have \(yRz\).
+Since this holds for arbitrary \(x, y, z\) in W, we can conclude that F is euclidean.
+\end{document}
