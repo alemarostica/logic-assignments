@@ -45,4 +45,20 @@ Now, \(xRz\) and, by assuming \(F \vDash \diamond \varphi \Rightarrow \square \d
 Therefore we have \(zRw\) for some w such that \(xRu\). Since y is accessible from x, y is also accessible from u, which implies \(yRw\).
 Given \(yRw\) and \(zRw\), by transitiviy we have \(yRz\).
 Since this holds for arbitrary \(x, y, z\) in W, we can conclude that F is euclidean.
-\end{document}\varphi 
+\section*{Exercise 4}
+\subsection*{Model 1}
+\begin{enumerate}
+    \item \(\phi_1 = \diamond \top \wedge \square (\neg \diamond \top)\)
+    \item \(\phi_2 = \diamond \top \wedge \square \diamond \top\)
+    \item \(\phi_3 = \square \diamond \top\)
+    \item \(\phi_4 = \diamond \bot \wedge \square (\neg \diamond \bot)\)
+\end{enumerate}
+\subsection*{Model 2}
+\begin{enumerate}
+    \item \(\phi_1 \diamond \bot \wedge \square (\neg \diamond \bot)\): \(\diamond \bot\) asserts that there is a possible world accessible from 4 where a false proposition exists. \(\square (\neg \diamond \bot)\) ensures that there is no other world accessible from 1 where there is a false proposition.
+    \item States 2 and 4 cannot be uniquely characterized.
+    \item \(\phi_3 = \square \diamond \top\): \(\square \diamond \top\) ensures that in all worlds accessible from 3 there is a world where a true proposition exists. There is no need for \(\diamond \top\) since it is not required for 3 itself to have a true proposition
+    \item States 2 and 4 cannot be uniquely characterized.
+\end{enumerate}
+\section*{Exercise 5}
+\end{document}
