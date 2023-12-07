@@ -1,5 +1,5 @@
 \documentclass[11pt]{exam}
-\usepackage{graphicx, bm, listings, txfonts, logicproof}
+\usepackage{graphicx, bm, listings, txfonts, logicproof, tikz}
 \title{Computational Logic - Assignment 3}
 \author{Alessandro Marostica}
 \date{\today}
@@ -48,17 +48,65 @@ Since this holds for arbitrary \(x, y, z\) in W, we can conclude that F is eucli
 \section*{Exercise 4}
 \subsection*{Model 1}
 \begin{enumerate}
-    \item \(\phi_1 = \diamond \top \wedge \square (\neg \diamond \top)\)
-    \item \(\phi_2 = \diamond \top \wedge \square \diamond \top\)
-    \item \(\phi_3 = \square \diamond \top\)
-    \item \(\phi_4 = \diamond \bot \wedge \square (\neg \diamond \bot)\)
+    \item \(x_1 \Vdash \diamond \diamond \square \bot \)
+    \item \(x_2 \Vdash (\diamond \square \bot) \wedge \neg (\diamond \diamond \diamond \square \bot) \)
+    \item \(x_3 \Vdash \square \bot \)
+    \item \(x_4 \Vdash \diamond \diamond \diamond \square \bot \)
 \end{enumerate}
 \subsection*{Model 2}
 \begin{enumerate}
-    \item \(\phi_1 \diamond \bot \wedge \square (\neg \diamond \bot)\): \(\diamond \bot\) asserts that there is a possible world accessible from 4 where a false proposition exists. \(\square (\neg \diamond \bot)\) ensures that there is no other world accessible from 1 where there is a false proposition.
-    \item States 2 and 4 cannot be uniquely characterized.
-    \item \(\phi_3 = \square \diamond \top\): \(\square \diamond \top\) ensures that in all worlds accessible from 3 there is a world where a true proposition exists. There is no need for \(\diamond \top\) since it is not required for 3 itself to have a true proposition
-    \item States 2 and 4 cannot be uniquely characterized.
+    \item \(x_1 \Vdash \diamond \diamond \square \bot\): \(x_1\) is the world where two jumps are needed to reach a world with no accessible neighbours.
+    \item \(x_2, x_4 \Vdash \diamond \square \bot\): States 2 and 4 cannot be uniquely characterized since they can both directly reach a world with no accessible neighbours.
+    \item \(x_3 \Vdash \square \bot \): \(x_3\) is the world with no accessible neighbours.
 \end{enumerate}
 \section*{Exercise 5}
+\begin{enumerate}
+    \item \begin{center}
+        \(\vdash \diamond(P \rightarrow Q) \rightarrow (\square P \rightarrow \diamond Q)\)
+        \begin{logicproof}{5}
+            \begin{subproof}
+                \diamond(P \rightarrow Q) & Assumption \\
+                \neg \square \neg (P \rightarrow Q) & Rewrite 1 \\
+                \begin{subproof}
+                    \square P & Assumption \\
+                    \begin{subproof}
+                        \square \neg Q & Assumption \\
+                        \begin{subproof}
+                            P & \(\square e 3\) \\
+                            \neg Q & \(\square e 4\) \\
+                            \begin{subproof}
+                                P \rightarrow Q & Assumption \\
+                                Q & \(\rightarrow e 5, 7\) \\
+                                \bot & \(\neg e 6, 8\)
+                            \end{subproof}
+                            \neg (P \rightarrow Q) & \(\neg i 7-9\)
+                        \end{subproof}
+                        \square \neg (P \rightarrow Q) & \(\square i 5, 10\) \\
+                        \bot & \(\neg e 2, 11\)
+                    \end{subproof}
+                    \neg \square \neg Q & \(\neg i 4-12\)
+                \end{subproof}
+                \square P \rightarrow \neg \square \neg Q & \(\rightarrow i 3-13\) \\
+                \square P \rightarrow \diamond Q & Rewrite 15
+            \end{subproof}
+            \diamond(P \rightarrow Q) \rightarrow (\square P \rightarrow \diamond Q) & \(\rightarrow i 1-15\)
+        \end{logicproof}
+    \end{center}
+    The box from line 5 to line 10 should be dashed, yet I had no idea how to make one.
+    \item \begin{center}
+        \(\vdash \square (\square P \rightarrow Q) \vee \square (\square Q \rightarrow P)\)
+    \end{center}
+    To prove the invalidity of this sequent it is sufficient to provide such Kripke structure:
+    \begin{center}
+        \begin{tikzpicture}[node distance={30mm}, main/.style = {draw, circle, minimum size=15mm}]
+            \node[main] (1) {};
+            \node[main] (2) [above right of=1] {};
+            \node[main] (3) [below right of=2] {P \ \ \ Q};
+            \draw[->] (1) -- (2);
+            \draw[->] (2) -- (3);
+        \end{tikzpicture}
+    \end{center}
+    The leftmost world does not satisfy either of the two operands of the given disjunction, we can then conclude that the sequent is not a tautology.
+\end{enumerate}
+
 \end{document}
